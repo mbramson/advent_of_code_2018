@@ -23,10 +23,6 @@ defmodule Day1 do
     |> Stream.map(fn string -> Integer.parse(string) |> elem(0) end)
   end
 
-  defp load_file() do
-    File.read("./lib/data/day_1.txt")
-  end
-
   defp load_file_stream() do
     File.stream!("./lib/data/day_1.txt")
   end
