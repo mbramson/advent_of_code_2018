@@ -15,33 +15,33 @@ defmodule Day2Test do
     end
   end
 
-  describe "counts_for/1" do
+  describe "generate_boolean_two_tuple_of_counts_for/1" do
     test "a returns false for both" do
-      assert Day2.counts_for("a") == {false, false}
+      assert Day2.generate_boolean_two_tuple_of_counts_for("a") == {false, false}
     end
 
     test "aa returns true for 2" do
-      assert Day2.counts_for("aa") == {true, false}
+      assert Day2.generate_boolean_two_tuple_of_counts_for("aa") == {true, false}
     end
 
     test "aaa returns true for 3" do
-      assert Day2.counts_for("aaa") == {false, true}
+      assert Day2.generate_boolean_two_tuple_of_counts_for("aaa") == {false, true}
     end
 
     test "ababa returns true for both" do
-      assert Day2.counts_for("ababa") == {true, true}
+      assert Day2.generate_boolean_two_tuple_of_counts_for("ababa") == {true, true}
     end
 
     test "aaabbbccc returns true for 3" do
-      assert Day2.counts_for("aaabbbccc") == {false, true}
+      assert Day2.generate_boolean_two_tuple_of_counts_for("aaabbbccc") == {false, true}
     end
 
     test "aaaa returns false for both" do
-      assert Day2.counts_for("aaaa") == {false ,false}
+      assert Day2.generate_boolean_two_tuple_of_counts_for("aaaa") == {false ,false}
     end
 
     test "empty string returns false for both" do
-      assert Day2.counts_for("") == {false, false}
+      assert Day2.generate_boolean_two_tuple_of_counts_for("") == {false, false}
     end
   end
 end

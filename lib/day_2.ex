@@ -1,6 +1,4 @@
-
 defmodule Day2 do
-
   def checksum_from_file() do
     load_file_stream()
     |> checksum()
@@ -8,31 +6,36 @@ defmodule Day2 do
 
   def checksum(string_id_list) do
     string_id_list
-    |> Enum.map(&counts_for/1)
+    |> Enum.map(&generate_boolean_two_tuple_of_counts_for/1)
     |> sum_tuple_trues
     |> multiply_twos_and_threes
   end
 
-  def counts_for(string) do
+  def generate_boolean_two_tuple_of_counts_for(string) do
     String.codepoints(string)
     |> generate_letter_counts
     |> generate_repeat_presence_tuple
   end
 
+  @doc """
+  Accepts a list of two-tuples containing boolean values. Returns a two-tuple
+  where each element is the number of two-tuples in the given list whose
+  corresponding element index is `true`.
+  """
   def sum_tuple_trues(tuples) do
     sum_tuple_trues(tuples, {0, 0})
   end
-  def sum_tuple_trues([], acc), do: acc
-  def sum_tuple_trues([{true, true} | rest], {twos, threes}) do
+  defp sum_tuple_trues([], acc), do: acc
+  defp sum_tuple_trues([{true, true} | rest], {twos, threes}) do
     sum_tuple_trues(rest, {twos + 1, threes + 1})
   end
-  def sum_tuple_trues([{false, true} | rest], {twos, threes}) do
+  defp sum_tuple_trues([{false, true} | rest], {twos, threes}) do
     sum_tuple_trues(rest, {twos, threes + 1})
   end
-  def sum_tuple_trues([{true, false} | rest], {twos, threes}) do
+  defp sum_tuple_trues([{true, false} | rest], {twos, threes}) do
     sum_tuple_trues(rest, {twos + 1, threes})
   end
-  def sum_tuple_trues([_ | rest], acc), do: sum_tuple_trues(rest, acc)
+  defp sum_tuple_trues([_ | rest], acc), do: sum_tuple_trues(rest, acc)
 
   defp multiply_twos_and_threes({twos, threes}), do: twos * threes
 
@@ -45,7 +48,13 @@ defmodule Day2 do
     end)
   end
 
-  defp generate_repeat_presence_tuple(letter_counts) do
+  @doc """
+  Given a string, returns a 2-tuple of booleans where the first element is true
+  if the string has any letters which repeat exactly twice (and false
+  otherwise). The second element is true if the string has any letters which
+  repeat exactly three times (and false otherwise).
+  """
+  def generate_repeat_presence_tuple(letter_counts) do
     # First value true if any letter seen twice
     # Second value true if any letter seen three times
     initial_accumulator = {false, false}
